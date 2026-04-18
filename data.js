@@ -1255,9 +1255,9 @@ modules:
     requires:
       - name: my-bookshop-db
       - name: my-bookshop-auth
-    provides:
-      - name: srv-api
-        properties: { srv-url: '${default-url}' }
+   provides:
+  - name: srv-api
+    properties: { srv-url: '\${default-url}' }
 
 resources:
   - name: my-bookshop-db
