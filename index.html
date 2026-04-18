@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAPM Mentor — SAP BTP Mastery</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-name">CAPM Mentor</div>
+        <div class="brand-sub">SAP BTP Mastery</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+        <span class="nav-icon">◈</span> Dashboard
+      </a>
+      <a class="nav-item" data-section="roadmap" onclick="showSection('roadmap')">
+        <span class="nav-icon">◉</span> Topic Roadmap
+      </a>
+      <a class="nav-item" data-section="daily" onclick="showSection('daily')">
+        <span class="nav-icon">◎</span> Daily Tasks
+      </a>
+      <a class="nav-item" data-section="concepts" onclick="showSection('concepts')">
+        <span class="nav-icon">▣</span> Concepts
+      </a>
+      <a class="nav-item" data-section="practice" onclick="showSection('practice')">
+        <span class="nav-icon">◐</span> Interview Prep
+      </a>
+      <a class="nav-item" data-section="notes" onclick="showSection('notes')">
+        <span class="nav-icon">▤</span> My Notes
+      </a>
+      <a class="nav-item" data-section="progress" onclick="showSection('progress')">
+        <span class="nav-icon">▥</span> Progress
+      </a>
+      <a class="nav-item" data-section="weekly" onclick="showSection('weekly')">
+        <span class="nav-icon">▦</span> Weekly Goals
+      </a>
+    </nav>
+
+    <div class="sidebar-streak">
+      <div class="streak-label">🔥 Current Streak</div>
+      <div class="streak-count" id="streakCount">0 days</div>
+    </div>
+  </aside>
+
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
+    <button class="burger" onclick="toggleSidebar()">☰</button>
+    <span class="mobile-title">CAPM Mentor</span>
+    <span class="mobile-day" id="mobileDayBadge">Day 1</span>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="section active" id="section-dashboard">
+      <div class="section-header">
+        <h1 class="section-title">Good Morning, <span class="accent">Developer</span> 👋</h1>
+        <div class="date-badge" id="dateBadge">—</div>
+      </div>
+
+      <!-- Day Navigator -->
+      <div class="day-navigator">
+        <button class="day-btn" onclick="changeDay(-1)">← Prev</button>
+        <div class="day-display">
+          <span class="day-num" id="dayNumDisplay">Day 1</span>
+          <span class="day-topic" id="dayTopicDisplay">—</span>
+        </div>
+        <button class="day-btn" onclick="changeDay(1)">Next →</button>
+      </div>
+
+      <!-- Today's Cards Row -->
+      <div class="cards-grid-2">
+        <div class="card card-glow">
+          <div class="card-tag">📘 Today's Concept</div>
+          <h3 class="card-heading" id="todayConcept">—</h3>
+          <p class="card-body" id="todayConceptDesc">—</p>
+          <div class="card-footer">
+            <button class="pill-btn" onclick="markDone('concept')">Mark Done ✓</button>
+          </div>
+        </div>
+
+        <div class="card card-warm">
+          <div class="card-tag">⚙️ Practical Task</div>
+          <h3 class="card-heading" id="todayTask">—</h3>
+          <p class="card-body" id="todayTaskDesc">—</p>
+          <div class="card-footer">
+            <button class="pill-btn" onclick="markDone('task')">Mark Done ✓</button>
+          </div>
+        </div>
+
+        <div class="card card-cool">
+          <div class="card-tag">🔁 Revision Topic</div>
+          <h3 class="card-heading" id="todayRevision">—</h3>
+          <p class="card-body" id="todayRevisionDesc">—</p>
+          <div class="card-footer">
+            <button class="pill-btn" onclick="markDone('revision')">Mark Done ✓</button>
+          </div>
+        </div>
+
+        <div class="card card-purple">
+          <div class="card-tag">🎯 Interview Question</div>
+          <h3 class="card-heading" id="todayInterview">—</h3>
+          <p class="card-body" id="todayInterviewAnswer">—</p>
+          <div class="card-footer">
+            <button class="pill-btn" onclick="markDone('interview')">Practiced ✓</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standout Skill -->
+      <div class="standout-card">
+        <div class="standout-icon">⭐</div>
+        <div class="standout-content">
+          <div class="standout-label">Today's Standout Skill — <em>What most freshers ignore</em></div>
+          <h3 class="standout-title" id="standoutTitle">—</h3>
+          <p class="standout-body" id="standoutBody">—</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num" id="statCompleted">0</div>
+          <div class="stat-label">Topics Done</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statPending">30</div>
+          <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statWeekPct">0%</div>
+          <div class="stat-label">Week Progress</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="statDayNum">1</div>
+          <div class="stat-label">Current Day</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ROADMAP ===== -->
+    <section class="section" id="section-roadmap">
+      <div class="section-header">
+        <h1 class="section-title">Topic <span class="accent">Roadmap</span></h1>
+        <p class="section-sub">Your complete CAPM mastery journey</p>
+      </div>
+
+      <div class="roadmap-grid" id="roadmapGrid">
+        <!-- JS populated -->
+      </div>
+    </section>
+
+    <!-- ===== DAILY TASKS ===== -->
+    <section class="section" id="section-daily">
+      <div class="section-header">
+        <h1 class="section-title">Daily <span class="accent">Learning</span> Sections</h1>
+      </div>
+
+      <div class="tabs-row">
+        <button class="tab-btn active" onclick="showTab('concept-tab')">Concept</button>
+        <button class="tab-btn" onclick="showTab('practical-tab')">Practical</button>
+        <button class="tab-btn" onclick="showTab('debug-tab')">Debugging</button>
+        <button class="tab-btn" onclick="showTab('interview-tab-2')">Interview</button>
+        <button class="tab-btn" onclick="showTab('revision-tab')">Revision</button>
+      </div>
+
+      <div class="tab-panel active" id="concept-tab">
+        <div class="detail-card">
+          <h2 id="dt-conceptTitle">—</h2>
+          <div class="code-block" id="dt-conceptCode"></div>
+          <p id="dt-conceptBody">—</p>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="practical-tab">
+        <div class="detail-card">
+          <h2 id="dt-taskTitle">—</h2>
+          <div class="code-block" id="dt-taskCode"></div>
+          <p id="dt-taskBody">—</p>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="debug-tab">
+        <div class="detail-card">
+          <h2>🐛 Debugging Practice</h2>
+          <p id="dt-debugBody">—</p>
+          <div class="code-block" id="dt-debugCode"></div>
+          <p class="hint-text">💡 Try to spot the bug before reading the fix!</p>
+          <div class="code-block fix-block" id="dt-debugFix"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="interview-tab-2">
+        <div class="detail-card">
+          <h2>🎤 Interview Practice</h2>
+          <p id="dt-interviewQ">—</p>
+          <div class="answer-reveal">
+            <button class="reveal-btn" onclick="revealAnswer()">Reveal Model Answer</button>
+            <div class="answer-box hidden" id="dt-interviewA">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="revision-tab">
+        <div class="detail-card">
+          <h2>🔁 Revision Notes</h2>
+          <div id="dt-revisionContent">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONCEPTS ===== -->
+    <section class="section" id="section-concepts">
+      <div class="section-header">
+        <h1 class="section-title">CAPM <span class="accent">Concepts</span> Library</h1>
+      </div>
+      <div class="concepts-list" id="conceptsList"><!-- JS --></div>
+    </section>
+
+    <!-- ===== INTERVIEW PREP ===== -->
+    <section class="section" id="section-practice">
+      <div class="section-header">
+        <h1 class="section-title">Interview <span class="accent">Prep</span></h1>
+        <p class="section-sub">30 must-know CAPM interview questions</p>
+      </div>
+      <div class="interview-list" id="interviewList"><!-- JS --></div>
+    </section>
+
+    <!-- ===== NOTES ===== -->
+    <section class="section" id="section-notes">
+      <div class="section-header">
+        <h1 class="section-title">My <span class="accent">Notes</span></h1>
+      </div>
+      <div class="notes-layout">
+        <div class="notes-sidebar">
+          <div class="notes-topic-label">Select Topic</div>
+          <div class="notes-topics" id="notesTopicList"><!-- JS --></div>
+        </div>
+        <div class="notes-editor-area">
+          <div class="notes-topic-name" id="activeNoteTopic">Select a topic →</div>
+          <textarea class="notes-textarea" id="notesTextarea" placeholder="Write your notes here..." oninput="saveNote()"></textarea>
+          <div class="notes-saved" id="notesSaved">✓ Saved</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROGRESS ===== -->
+    <section class="section" id="section-progress">
+      <div class="section-header">
+        <h1 class="section-title">Progress <span class="accent">Tracker</span></h1>
+      </div>
+
+      <div class="progress-overview">
+        <div class="big-progress-ring">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" id="progressRing" />
+          </svg>
+          <div class="ring-label">
+            <div class="ring-pct" id="overallPct">0%</div>
+            <div class="ring-sub">Complete</div>
+          </div>
+        </div>
+
+        <div class="progress-stats">
+          <div class="prog-stat"><span id="ps-done">0</span><br><small>Completed</small></div>
+          <div class="prog-stat"><span id="ps-pending">30</span><br><small>Pending</small></div>
+          <div class="prog-stat"><span id="ps-streak">0</span><br><small>Day Streak</small></div>
+        </div>
+      </div>
+
+      <h2 class="sub-heading">Topic Progress</h2>
+      <div class="topic-progress-list" id="topicProgressList"><!-- JS --></div>
+
+      <h2 class="sub-heading">30-Day Calendar</h2>
+      <div class="day-calendar" id="dayCalendar"><!-- JS --></div>
+    </section>
+
+    <!-- ===== WEEKLY GOALS ===== -->
+    <section class="section" id="section-weekly">
+      <div class="section-header">
+        <h1 class="section-title">Weekly <span class="accent">Goals</span></h1>
+      </div>
+      <div class="weekly-grid" id="weeklyGrid"><!-- JS --></div>
+    </section>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
